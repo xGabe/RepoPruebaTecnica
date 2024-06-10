@@ -14,6 +14,7 @@
   "author": "GabrielPaganelli",
   "license": "ISC",
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
     "cypress": "^13.11.0"
   }
 }
