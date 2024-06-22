@@ -1,0 +1,7 @@
+{
+    "submmitSerch": "btn.btn-primary",
+    "guestCount": "[name='guest_count']",
+    "startDate": "[name='start_date']",
+    "endDate": "[name='end_date']",
+    "nextStep": ".text-success" 
+}

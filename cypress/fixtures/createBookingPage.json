@@ -1,0 +1,8 @@
+{
+    "guestCount": "[name='guest_count']",
+    "roomInput": "[name='room_id']",
+    "guestName": "[name='contact_info_0']",
+    "guestEmail": "[name='contact_info_1']",
+    "guestNum": "[name='contact_info_2']",
+    "submitBtn": ".w-50"
+}
