@@ -3,5 +3,6 @@
     "guestCount": "[name='guest_count']",
     "startDate": "[name='start_date']",
     "endDate": "[name='end_date']",
-    "nextStep": ".text-success" 
+    "nextStep": ".text-success",
+    "submitBtn": ".btn.btn-primary"
 }
