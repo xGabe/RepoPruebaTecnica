@@ -1,24 +1,21 @@
-Cypress.Commands.add('daySelect',()=>{
+Cypress.Commands.add('daySelect',()=>{          // select random days and summit
     const dates = []
     const rdmDay = Cypress._.random(1,28)
     const rdmDayFormat = rdmDay.toString().padStart(2, "0")
     const rdmMouth = Cypress._.random(1,11)
     const rdmMouthFormat = rdmMouth.toString().padStart(2, "0")
-    const rdmYear = Cypress._.random(2017,2022)
+    const rdmYear = Cypress._.random(2017,2022).toString()
     const date1 = `${rdmYear}-${rdmMouthFormat}-${rdmDayFormat}`
     dates.push(date1)
     const rdmMouth2 = Cypress._.random(rdmMouth +1 ,12).toString().padStart(2, "0")
     const rdmDay2 = Cypress._.random(1,28).toString().padStart(2, "0")
-    const date2 = `${rdmYear}-${rdmMouth2}-${rdmDay2}`
+    const rdmYear2= Cypress._.random(rdmYear,2024).toString()
+    const date2 = `${rdmYear2}-${rdmMouth2}-${rdmDay2}`
     dates.push(date2)
-    cy.wrap(dates).then(datesArray => {
-        const [startDate, endDate] = datesArray
-        cy.get("[name='start_date']").click().type(startDate)  //Select dates
-        cy.get("[name='end_date']").click().type(endDate)
-        // cy.log("ingresa fechas por primera vez")
-        cy.get(".btn.btn-primary").click()
-        return datesArray
-    })
+    cy.get("[name='start_date']").click().type(date1)  //Select dates
+    cy.get("[name='end_date']").click().type(date2)
+    cy.get(".btn.btn-primary").click()
+    return cy.wrap(dates)
 })
 
 Cypress.Commands.add('selectDateAvailable',()=>{
@@ -35,7 +32,7 @@ Cypress.Commands.add('selectDateAvailable',()=>{
                             const rdmIndex = Cypress._.random(index-1)
                             cy.get(the.nextStep).eq(rdmIndex).click()
                             cy.log("Available dates found")
-                            return datesArray
+                            
                         })
                     })
                 }
