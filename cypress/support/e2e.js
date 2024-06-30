@@ -14,8 +14,8 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
 import './index'
+import './commands'
 import './roomsType'
 import './createBooking'
 // Alternatively you can use CommonJS syntax:
