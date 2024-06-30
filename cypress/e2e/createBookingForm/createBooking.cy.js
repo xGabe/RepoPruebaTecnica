@@ -55,7 +55,7 @@ describe("Create booking",()=>{
         })   
 
     })
-    it.only("TC2: - NOT create booking from ivalid guest count",()=>{
+    it("TC2: - NOT create booking from ivalid guest count",()=>{
         cy.fixture("createBookingPage").then((the)=>{
             cy.get(the.guestCount).then((input) =>{         //Select invalid guest count
                 const max = parseInt(input.attr("max"))
