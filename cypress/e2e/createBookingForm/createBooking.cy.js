@@ -14,7 +14,11 @@ describe("Create booking",()=>{
         cy.fixture("home").then((the)=> {
             cy.get(the.newBookingBtn).click()
             cy.url().should("contain", "room_types") //micro assert
-            cy.selectDateAvailable()                 //Select date available
+            cy.selectDateAvailable().then(({ rdmIndex })=>{
+                cy.fixture("roomsType").then((the)=>{
+                    cy.get(the.nextStep).eq(rdmIndex).click()
+                })
+            })                 //Select date available
             cy.url().should("contain", "new")        //micro assert
         })
     })
