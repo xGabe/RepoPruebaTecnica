@@ -24,7 +24,15 @@ jobs:
         run: npm install
         
       - name: Set system language to Spanish
-        run: sudo apt-get install -y language-pack-es
+        run: |
+          sudo apt-get install -y language-pack-es
+          sudo update-locale LANG=es_ES.UTF-8
 
-      - name: Run Cypress tests
+      - name: Set Chrome language to Spanish
+        run: |
+          sudo apt-get install -y chromium-browser
+          echo "CHROMIUM_FLAGS=--lang=es" | sudo tee -a /etc/chromium-browser/default
+          export CHROMIUM_FLAGS=--lang=es
+
+      - name: Run Cypress tests on Chrome in Spanish
         run: npx cypress run --browser chrome
