@@ -25,13 +25,31 @@ Cypress.Commands.add('selectRoom',()=>{
     })
 })
 Cypress.Commands.add('validateError',(element,errorMsg)=>{
+    cy.get(element).then((input) => {
+        // Verify invalid field
+        expect(input[0].validity.valid).to.be.false;                        
+        // Verify error message
+        const validationMessage = input[0].validationMessage;
+        expect(validationMessage).to.include(errorMsg);
+    }) 
+})
+Cypress.Commands.add('inputName',(name)=>{
     cy.fixture("createBookingPage").then((the)=>{
-        cy.get(element).then((input) => {
-            // Verify invalid field
-            expect(input[0].validity.valid).to.be.false;                        
-            // Verify error message
-            const validationMessage = input[0].validationMessage;
-            expect(validationMessage).to.include(errorMsg);
-        }) 
+        cy.get(the.guestName).type(name)
+    })
+})
+Cypress.Commands.add('inputEmail',(email)=>{
+    cy.fixture("createBookingPage").then((the)=>{
+        cy.get(the.guestEmail).type(email)
+    })
+})
+Cypress.Commands.add('inputNum',(num)=>{
+    cy.fixture("createBookingPage").then((the)=>{
+        cy.get(the.guestNum).type(num)
+    })
+})
+Cypress.Commands.add('submitForm',()=>{
+    cy.fixture("createBookingPage").then((the)=>{
+        cy.get(the.submitBtn).click()
     })
 })

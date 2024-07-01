@@ -4,6 +4,9 @@
     "guestName": "[name='contact_info_0']",
     "guestEmail": "[name='contact_info_1']",
     "guestNum": "[name='contact_info_2']",
+    "start_Date": "[name='start_date']",
+    "end_Date": "[name='end_date']",
+    "inputText": "input[type='text']",
     "submitBtn": ".w-50",
     "bookingList": "tr",
     "error": {

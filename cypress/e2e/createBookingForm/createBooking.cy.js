@@ -5,8 +5,8 @@ const rdmEmail = faker.internet.exampleEmail()
 const invalidEmail1 = faker.internet.email().replace('@', '')        // without @ "xxxxxx"
 const invalidEmail2 = faker.internet.email().replace(/^.+@/, '@')    // without first part "@xxxx"
 const invalidEmail3 = faker.internet.email().replace(/@.+$/, '@')    // without domain "xxxx@"
-const invalidEmail4 = faker.internet.email().replace(/@.+$/, '@#')   // with special character in domain "xxxx@#"
-const invalidEmail5 = faker.internet.email().replace(/^.+@/, '#@')   // with special character in frist part "#@xxxx"
+const invalidEmail4 = faker.internet.email().replace(/@.+$/, '@#')   // with special character in domain "xxxx@°"
+const invalidEmail5 = faker.internet.email().replace(/^.+@/, '°@')   // with special character in frist part "°@xxxx"
 
 describe("Create booking",()=>{
     beforeEach("Go to website",()=>{
@@ -24,20 +24,20 @@ describe("Create booking",()=>{
             cy.selectGuestCount()                    //select guests
             cy.selectRoom()                         //select number room
                     //Imput guest data
-            cy.get(the.guestName).type(rdmName)
-            cy.get(the.guestEmail).type(rdmEmail)
-            cy.get(the.guestNum).type(rmdNum)
+            cy.inputName(rdmName)
+            cy.inputEmail(rdmEmail)
+            cy.inputNum(rmdNum)
                         //take elements for assert
-            cy.get('[name="start_date"]').invoke('val').then((startDateValue) => { 
+            cy.get(the.start_Date).invoke('val').then((startDateValue) => { 
                 Cypress.env('startDate', startDateValue); 
             });        
-            cy.get('[name="end_date"]').invoke('val').then((endDateValue) => {
+            cy.get(the.end_Date).invoke('val').then((endDateValue) => {
                 Cypress.env('endDate', endDateValue);  
             });
-            cy.get("input[type='text']").eq(2).invoke('val').then((price)=>{
+            cy.get(the.inputText).eq(2).invoke('val').then((price)=>{
                 Cypress.env("price", price)
             })
-            cy.get(the.submitBtn).click()
+            cy.submitForm()
                     //assert
             cy.then(() => {
                 const startDate = Cypress.env('startDate');
@@ -63,12 +63,11 @@ describe("Create booking",()=>{
                 cy.get(the.guestCount).type(rdmInput)
             })
             cy.selectRoom()   
-            cy.get(the.guestName).type(rdmName)
-            cy.get(the.guestEmail).type(rdmEmail)
+            cy.inputName(rdmName)
+            cy.inputEmail(rdmEmail)
             cy.get(the.guestNum).type(rmdNum)
-            cy.get(the.submitBtn).click()
-            cy.validateError(the.guestCount, the.error.messageErrorCountGuest1)  // assert commands
-            
+            cy.submitForm()
+            cy.validateError(the.guestCount, the.error.messageErrorCountGuest1)  // assert commands 
             cy.get(the.guestCount).clear().type("0")        //Select 0 guest
             cy.validateError(the.guestCount, the.error.messageErrorCountGuest2)  // assert commands
             
@@ -77,63 +76,48 @@ describe("Create booking",()=>{
     it("TC3: - NOT create by void field for Guest count(requiered)",()=>{
         cy.fixture("createBookingPage").then((the)=>{
             cy.selectRoom()   
-            cy.get(the.guestName).type(rdmName)
-            cy.get(the.guestEmail).type(rdmEmail)
-            cy.get(the.guestNum).type(rmdNum)
-            cy.get(the.submitBtn).click()
-            //assert 
-            cy.get(the.guestCount).then((input) => {
-                // Verify invalid field
-                expect(input[0].validity.valid).to.be.false;                        
-                // Verify error message
-                const validationMessage = input[0].validationMessage;
-                expect(validationMessage).to.include(the.error.messageErrorVoid);
-            });
+            cy.inputName(rdmName)
+            cy.inputEmail(rdmEmail)
+            cy.inputNum(rmdNum)
+            cy.submitForm()
+            cy.validateError(the.guestCount, the.error.messageErrorVoid)    // assert commands
         }) 
         
     })
-    
     it("TC4: - NOT create booking by void field in Name (requiered)",()=>{
         cy.fixture("createBookingPage").then((the)=>{
             cy.selectGuestCount()
             cy.selectRoom()   
-            cy.get(the.guestEmail).type(rdmEmail)
-            cy.get(the.guestNum).type(rmdNum)
-            cy.get(the.submitBtn).click()
-            //assert 
-            cy.get(the.guestName).then((input) => {
-                // Verify invalid field
-                expect(input[0].validity.valid).to.be.false;                        
-                // Verify error message
-                const validationMessage = input[0].validationMessage;
-                expect(validationMessage).to.include(the.error.messageErrorVoid);
-            });
+            cy.inputEmail(rdmEmail)
+            cy.inputNum(rmdNum)
+            cy.submitForm()
+            cy.validateError(the.guestName, the.error.messageErrorVoid)     // assert commands
         }) 
     })
     it("TC5: - NOT create booking from ivalid Email",()=>{
         cy.fixture("createBookingPage").then((the)=>{
             cy.selectGuestCount()
             cy.selectRoom()   
-            cy.get(the.guestName).type(rdmName)
-            cy.get(the.guestNum).type(rmdNum)
-            cy.get(the.guestEmail).type(invalidEmail1)      // without @ "xxxxxxxx"
-            cy.get(the.submitBtn).click()
+            cy.inputName(rdmName)
+            cy.inputNum(rmdNum)
+            cy.inputEmail(invalidEmail1)      // without @ "xxxxxxxx"
+            cy.submitForm()
             cy.validateError(the.guestEmail, the.error.messageErrorEmail1) // assert commands
            
             cy.get(the.guestEmail).clear().type(invalidEmail2)    // without first part "@xxxx"  
-            cy.get(the.submitBtn).click()
+            cy.submitForm()
             cy.validateError(the.guestEmail, the.error.messageErrorEmail2)  // assert commands
             
             cy.get(the.guestEmail).clear().type(invalidEmail3)      // without domain "xxxx@"
-            cy.get(the.submitBtn).click()
+            cy.submitForm()
             cy.validateError(the.guestEmail, the.error.messageErrorEmail3)  // assert commands
              
             cy.get(the.guestEmail).clear().type(invalidEmail4)      // with special character in domain "xxxx@#"
-            cy.get(the.submitBtn).click()
+            cy.submitForm()
             cy.validateError(the.guestEmail, the.error.messageErrorEmail4)  // assert commands
             
             cy.get(the.guestEmail).clear().type(invalidEmail5)      // with special character in first part "#@xxxx"
-            // cy.get(the.submitBtn).click()
+            // cy.submitForm()
             cy.validateError(the.guestEmail, the.error.messageErrorEmail5)  // assert commands
         })
     })
@@ -141,9 +125,9 @@ describe("Create booking",()=>{
         cy.fixture("createBookingPage").then((the)=>{
             cy.selectGuestCount()
             cy.selectRoom()   
-            cy.get(the.guestName).type(rdmName)
-            cy.get(the.guestNum).type(rmdNum)
-            cy.get(the.submitBtn).click()
+            cy.inputName(rdmName)
+            cy.inputNum(rmdNum)
+            cy.submitForm()
             cy.validateError(the.guestEmail, the.error.messageErrorVoid)  // assert commands
         })    
     })
@@ -151,9 +135,9 @@ describe("Create booking",()=>{
         cy.fixture("createBookingPage").then((the)=>{
             cy.selectGuestCount()
             cy.selectRoom()   
-            cy.get(the.guestEmail).type(rdmEmail)
-            cy.get(the.guestName).type(rdmName)
-            cy.get(the.submitBtn).click()
+            cy.inputName(rdmName)
+            cy.inputEmail(rdmEmail)
+            cy.submitForm()
             cy.validateError(the.guestNum, the.error.messageErrorVoid)   // assert commands
         }) 
     })
