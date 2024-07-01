@@ -4,5 +4,22 @@
     "guestName": "[name='contact_info_0']",
     "guestEmail": "[name='contact_info_1']",
     "guestNum": "[name='contact_info_2']",
-    "submitBtn": ".w-50"
+    "start_Date": "[name='start_date']",
+    "end_Date": "[name='end_date']",
+    "inputText": "input[type='text']",
+    "submitBtn": ".w-50",
+    "bookingList": "tr",
+    "error": {
+        
+            "messageErrorEmail1": "no incluye el signo \"@\"",
+            "messageErrorEmail2": "Ingresa texto antes del signo \"@\"",
+            "messageErrorEmail3": "Ingresa texto después del signo \"@\"",
+            "messageErrorEmail4": "El texto después del signo \"@\" no debe incluir el símbolo",
+            "messageErrorEmail5": "El texto antes del signo \"@\" no debe incluir el símbolo",
+            "messageErrorVoid": "Completa este campo",
+            "messageErrorCountGuest1": "El valor debe ser menor de o igual a",
+            "messageErrorCountGuest2": "El valor debe ser mayor de o igual a 1",
+            "messageErrorCountGuest3": "Debes introducir un número"
+          
+    }
 }
