@@ -1,8 +1,8 @@
-describe("Check room types",()=>{
+describe("Validate price for room and ",()=>{
     beforeEach("Go to website",()=>{
         cy.visit("/");
     })
-    it("create booking",()=>{
+    it("Validate price for room",()=>{
         cy.fixture("home").then((the)=> {
             cy.get(the.newBookingBtn).click()
             cy.url().should("contain", "room_types") //micro assert
@@ -20,10 +20,11 @@ describe("Check room types",()=>{
                     cy.get("tbody tr").eq(1).should("contain.text", cost2) //double room
                     cy.get("tbody tr").eq(2).should("contain.text", cost3) //triple room
                     cy.get("tbody tr").eq(3).should("contain.text", cost4) //quadruple room
+                    //assert value in booking form
                     cy.selectRoomType().then((priceRoomType)=>{
                         cy.fixture("createBookingPage").then((the)=>{
                             cy.get(the.inputText).eq(2).invoke('val').then((price)=>{
-                                expect(price).to.equal(priceRoomType)
+                                expect(price).deep.equal(priceRoomType)
                             })
                         })
                     })
