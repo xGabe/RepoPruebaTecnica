@@ -27,16 +27,10 @@ jobs:
           sudo apt-get install -y language-pack-es
           sudo update-locale LANG=es_ES.UTF-8
 
-      - name: Install Google Chrome
-        run: |
-          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
-
       - name: Set Chrome language to Spanish
         run: |
-          echo "export CHROME_ARGS=--lang=es" | sudo tee -a /etc/environment
+          sudo apt-get install -y chromium-browser
+          echo "export CHROMIUM_FLAGS=--lang=es" | sudo tee -a /etc/environment
           source /etc/environment
 
       - name: Run Cypress tests on Chrome in Spanish
