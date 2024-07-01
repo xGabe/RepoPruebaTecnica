@@ -1,40 +1,47 @@
 Cypress.Commands.add('daySelect',()=>{          // select random days and summit
     const dates = []
-    const rdmDay = Cypress._.random(1,28)
+    const rdmDay = Cypress._.random(1,27)
     const rdmDayFormat = rdmDay.toString().padStart(2, "0")
-    const rdmMouth = Cypress._.random(1,11)
+    const rdmMouth = Cypress._.random(1,12)
     const rdmMouthFormat = rdmMouth.toString().padStart(2, "0")
-    const rdmYear = Cypress._.random(2017,2022).toString()
+    const rdmYear = Cypress._.random(2000,2002).toString()
     const date1 = `${rdmYear}-${rdmMouthFormat}-${rdmDayFormat}`
     dates.push(date1)
-    const rdmMouth2 = Cypress._.random(rdmMouth +1 ,12).toString().padStart(2, "0")
-    const rdmDay2 = Cypress._.random(1,28).toString().padStart(2, "0")
-    const rdmYear2= Cypress._.random(rdmYear,2024).toString()
-    const date2 = `${rdmYear2}-${rdmMouth2}-${rdmDay2}`
+    const rdmMouth2 = Cypress._.random(rdmMouth,12).toString().padStart(2, "0")
+    const rdmDay2 = Cypress._.random(rdmDay,28).toString().padStart(2, "0")
+    const rdmYear2= Cypress._.random(rdmYear,2022).toString()
+    const date2 = `${rdmYear}-${rdmMouthFormat}-${rdmDay2}`        //modify to determine range
     dates.push(date2)
-    cy.get("[name='start_date']").click().type(date1)  //Select dates
-    cy.get("[name='end_date']").click().type(date2)
-    cy.get(".btn.btn-primary").click()
+    cy.fixture("roomsType").then((the)=>{       
+        cy.get(the.startDate).type(date1)
+        cy.get(the.endDate).type(date2)
+        cy.get(the.submitBtn).click()
+    })
     return cy.wrap(dates)
+})
+Cypress.Commands.add('selectRoomType', () => {
+    return cy.fixture("roomsType").then((the) => {
+        return cy.get(the.nextStep).its("length").then((index) => {
+            const rdmIndex = Cypress._.random(index - 1)
+            return cy.get(the.nextStep).eq(rdmIndex).parents("tr").find(".text-center").eq(2).invoke("text").then((price) => {
+                cy.get(the.nextStep).eq(rdmIndex).click()
+                return cy.wrap(price)
+            })
+        })
+    })
 })
 
 Cypress.Commands.add('selectDateAvailable',()=>{
     function checkDateAvailable() {    
         cy.daySelect().then(()=>{
-            cy.get("body").then((body)=>{
-                const dateAvailable = body.find(".text-success").length > 0
+            cy.get("tbody").then((tbody)=>{
+                const dateAvailable = tbody.find(".text-success").length > 0
                 if (!dateAvailable) {
                     cy.log("select new date")
                     checkDateAvailable()
                 } else{
-                    cy.fixture("roomsType").then((the) =>{
-                        cy.get(the.nextStep).its("length").then((index)=>{
-                            const rdmIndex = Cypress._.random(index-1)
-                            cy.get(the.nextStep).eq(rdmIndex).click()
-                            cy.log("Available dates found")
-                            
-                        })
-                    })
+                    cy.selectRoomType()
+                    cy.log("Available dates found")
                 }
                 
             })

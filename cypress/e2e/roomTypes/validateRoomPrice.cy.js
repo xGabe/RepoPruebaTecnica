@@ -20,6 +20,13 @@ describe("Check room types",()=>{
                     cy.get("tbody tr").eq(1).should("contain.text", cost2) //double room
                     cy.get("tbody tr").eq(2).should("contain.text", cost3) //triple room
                     cy.get("tbody tr").eq(3).should("contain.text", cost4) //quadruple room
+                    cy.selectRoomType().then((priceRoomType)=>{
+                        cy.fixture("createBookingPage").then((the)=>{
+                            cy.get(the.inputText).eq(2).invoke('val').then((price)=>{
+                                expect(price).to.equal(priceRoomType)
+                            })
+                        })
+                    })
                 })
             })
         })
