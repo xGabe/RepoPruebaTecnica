@@ -31,15 +31,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
 
-      - name: Set Chrome language to Spanish
-        run: |
-          echo "export CHROME_ARGS=--lang=es" | sudo tee -a /etc/environment
-          echo "export CHROME_ARGS=--lang=es --force-language=es --lang=es_ES --lang=es_ES.UTF-8" | sudo tee -a /etc/environment
-          source /etc/environment
+      - name: Print environment variables
+        run: printenv
 
       - name: Run Cypress tests on Chrome in Spanish
         run: |
           export LANG=es_ES.UTF-8
           export LANGUAGE=es_ES.UTF-8
-          export LC_ALL=es_ES.UTF-8        
-          npx cypress run --browser chrome
+          export LC_ALL=es_ES.UTF-8
+          npx cypress run --browser chrome --config 'chromeWebSecurity=false' --headless --env 'chromeWebSecurity=false' --spec cypress/integration/**/* --headed --no-sandbox --disable-dev-shm-usage --disable-gpu --lang=es --force-language=es --lang=es_ES --lang=es_ES.UTF-8
