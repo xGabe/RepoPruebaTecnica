@@ -26,7 +26,7 @@
       
     - Puedes utilizar también
       ```
-      npm run
+      npm test
       ```
       que sirve para ejecutar las pruebas en modo interactivo
 ---
