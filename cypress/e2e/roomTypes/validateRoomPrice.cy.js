@@ -1,4 +1,4 @@
-describe("Validate price for room and ",()=>{
+describe("Validate price for room",()=>{
     beforeEach("Go to website",()=>{
         cy.visit("/");
     })
