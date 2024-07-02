@@ -45,4 +45,4 @@ Error al ejecutar las pruebas Edge
 ---
 
 ![error with Firefox](https://github.com/xGabe/RepoPruebaTecnica/assets/117762203/8141195c-f76b-48ec-a4eb-acbfd7693283)
-Eror al ejecutar las pruebas en Firefox
+Error al ejecutar las pruebas en Firefox
