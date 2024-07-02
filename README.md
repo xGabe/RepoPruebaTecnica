@@ -1,6 +1,6 @@
-## 🧪Repositorio para prueba tecnica
+## 🧪Repositorio para prueba técnica
 
-### Como empezar:
+### Cómo empezar:
 
 1. **Clona el Proyecto**:
     ```
