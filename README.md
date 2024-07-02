@@ -24,7 +24,7 @@
       el cual es un atajo, es para que podamos correr las pruebas en modo headless usando el navegador de chrome ya que utilizar otro navegador puede ocacionar que los Assert de las pruebas donde se captura el error en los datos del formulario
       fallen, ya que por la naturaleza del desarollo, los tooltips y sus mensajes son nativos de cada navegador.
       
-   -Puedes utilizar también
+    - Puedes utilizar también
       ```
       npm run
       ```
