@@ -32,16 +32,4 @@
 
 ### 🚩IMPORTANTE
 
-En el repositorio se encontrará un pipeline para correr las pruebas que se ejecuta al hacer push o mergue a master, en el cual las pruebas fallan por lo mensionado anteriormente, se adjunta error obtenido  
-![error pipeline](https://github.com/xGabe/RepoPruebaTecnica/assets/117762203/67adae65-c1b1-4a18-96b2-6d0233e8f52a)
-En este caso navegador se ejecuta en ingles, por lo tanto los tooltips con los mensajes de error estaran en este idioma, lo cual hara que fallen las comparaciones
-
----
-
-![error with Edge](https://github.com/xGabe/RepoPruebaTecnica/assets/117762203/9ab0cced-ca83-4786-aebd-7f91282141f2)
-Error al ejecutar las pruebas Edge
-
----
-
-![error with Firefox](https://github.com/xGabe/RepoPruebaTecnica/assets/117762203/8141195c-f76b-48ec-a4eb-acbfd7693283)
-Error al ejecutar las pruebas en Firefox
+En el repositorio se encontrará un pipeline para correr las pruebas que se ejecuta al hacer push o mergue a master
