@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx cypress open",
-    "run": "npx cypress run --browser chrome"
+    "run:test": "npx cypress run --browser chrome"
   },
   "keywords": [
     "qa",

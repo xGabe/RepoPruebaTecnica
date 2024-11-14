@@ -18,11 +18,10 @@
 
 3. **Para correr las pruebas ejecuta**:
     ```
-    npm run
+    npm run run:test
     ```
     - cuyo script es un: ` npx cypress run --browser chrome`, 
-      el cual es un atajo para que ejecutar las pruebas en modo headless usando el navegador de chrome ya que utilizar otro navegador puede ocacionar que los Assert de las pruebas donde se captura el error en los datos del formulario
-      fallen, ya que por la naturaleza del desarollo, los tooltips y sus mensajes son nativos de cada navegador.
+      el cual es un atajo para que ejecutar las pruebas en modo headless usando el navegador de chrome
       
     - Puedes utilizar también
       ```

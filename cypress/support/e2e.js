@@ -16,7 +16,6 @@
 // Import commands.js using ES2015 syntax:
 import './index'
 import './commands'
-import './roomsType'
-import './createBooking'
+import './intercept'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
